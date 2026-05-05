@@ -34,6 +34,7 @@ void ifourier (TimeField& field) {
 }
 
 TimeField step (const TimeField& field, const Config& config) {
+    // TODO: use normalized form of NLSE instead
     const complex<double> I = {0, 1};
     // Take half a step with nonlinear part only
     const complex<double> prefactor = I * config.nonlinear_coupling * config.step_size / 2.0;
@@ -53,6 +54,7 @@ TimeField step (const TimeField& field, const Config& config) {
     std::cout << "Linear propagation" << std::endl;
     out_field *= exp(0.5 * pow(omega, 2) * config.step_size * I);  // propagate in space
     std::cout << "Inverse FFT" << std::endl;
+    // TODO: normalize after inverse FFT so energy is the same
     ifourier(out_field);  // go back to time domain
 
     // Take half a step with nonlinear part only, again
