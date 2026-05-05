@@ -24,46 +24,89 @@ where:
 * $\phi_0$ is a detuning parameter;
 * $\theta \in [0, 1]$ is an energy coupling parameter.
 
+### Notation
+
+In the following, we drop the index $m$ when discussing the NLSE, since this equation does not couple different fields with different $m$.
+
+### Renormalizing
+
+$$
+\frac{\partial A}{\partial z} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2} \frac{\partial^2 A}{\partial t^2} + i \gamma |A|^2 A
+$$
+
+Substituting $z = \xi z_0$ and $t = \tau t_0$,
+
+$$
+\frac{1}{z_0} \frac{\partial A}{\partial \xi} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2 t_0^2} \frac{\partial^2 A}{\partial \tau^2} + i \gamma |A|^2 A
+\\[5pt]
+\frac{\partial A}{\partial \xi} = -\frac{\alpha z_0}{2} A - i \frac{\beta_2 z_0}{2 t_0^2} \frac{\partial^2 A}{\partial\tau^2} + i \gamma z_0 |A|^2 A
+$$
+
+Then we can choose $z_0$ and $t_0$ such that
+
+$$
+\alpha z_0 = \frac{\beta_2 z_0}{t_0^2} = 1
+\\[5pt]
+\implies
+z_0 = \frac{1}{\alpha},
+\quad
+t_0 = \sqrt{\frac{\beta_2}{\alpha}}
+$$
+
+so the NLSE becomes
+
+$$
+\frac{\partial A}{\partial\xi} = -\frac{1}{2} A - \frac{i}{2} \frac{\partial^2 A}{\partial\tau^2} + i \kappa |A|^2 A
+$$
+
+where $\kappa = \dfrac{\gamma}{\alpha}$.
+
 ## Split-step method
 
-Let us supress the index $m$ since this discussion apply to each $A^m$, irrespective of the others.
-
-In order to solve the NLSE, we use the split-step method. That consists in intercalating steps of the linear and nonlinear parts of the NLSE. The linear of the equation is that given by $\gamma = 0$,
+In order to solve the NLSE, we use the split-step method. That consists in intercalating steps of the linear and nonlinear parts of the NLSE. The linear of the equation is that given by $\kappa = 0$,
 
 $$
-\frac{\partial A}{\partial z} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2} \frac{\partial^2 A}{\partial t^2}
+\frac{\partial A}{\partial \xi} = -\frac{1}{2} A - \frac{i}{2} \frac{\partial^2 A}{\partial \tau^2}
 $$
 
-which has an exact solution in the frequency domain. Allowing $\tilde{A}(z, \omega)$ to be the Fourier transform (in time) for $A(z, t)$, we have
+which has an exact solution in the frequency domain. Allowing $\tilde{A}(\xi, \omega)$ to be the Fourier transform (w.r.t. time \tau) for $A(\xi, \tau)$, we have
 
 $$
-\frac{\partial \tilde{A}}{\partial z} = \left(-\frac{\alpha}{2} + i \omega^2 \frac{\beta_2}{2}\right) \tilde{A}
+\frac{\partial \tilde{A}}{\partial \xi} = \frac{1}{2} (i \omega^2 - 1) \tilde{A}
 $$
 
 whose solution is
 
 $$
-\tilde{A}(z, \omega) = e^{k (z - z_0)} \tilde{A}(z_0, \omega)
+\tilde{A}(\xi, \omega) = e^{k (\xi - \xi_0)} \tilde{A}(\xi_0, \omega)
 $$
 
 where
 
 $$
-k = -\frac{\alpha}{2} + i \omega^2 \frac{\beta_2}{2}
+k = \frac{1}{2} (i \omega^2 - 1)
 $$
 
-and $z_0$ corresponds to some initial condition. We can perform the linear step from $z_0$ to $z = z_0 + h$ for some small $h$ with a small error. Taking the inverse Fourier transform of $\tilde{A}(z, \omega)$, we get $A(z, t)$ finishes the linear propagation.
+and $\xi_0$ corresponds to some initial condition. We can perform the linear step from $\xi_0$ to $\xi = \xi_0 + \delta$ for some small $\delta$ with a small error. Taking the inverse Fourier transform of $\tilde{A}(\xi, \omega)$, we get $A(\xi, \tau)$ finishes the linear propagation.
 
-For the nonlinear step, we look at all the terms in the NLSE neglected so far:
-
-$$
-\frac{\partial A}{\partial z} = i \gamma |A|^2 A
-$$
-
-which for a small length step $h$, gives the approximate solution
+For the nonlinear step, we consider only the effect of the nonlinear term in the NLSE
 
 $$
-A(z + h, t) = e^{i \gamma |A(z, t)^2| h} A(z, t)
+\frac{\partial A}{\partial \xi} = i \kappa |A|^2 A
+$$
+
+which for a small length step $\delta$, gives the approximate solution
+
+$$
+A(\xi + \delta, \tau) = e^{i \kappa |A(\xi, \tau)^2| h} A(\xi, \tau)
+$$
+
+### Test cases for NLSE
+
+Bright soliton
+
+$$
+A(\xi, \tau) = a \operatorname{sech} [a (\xi - v \tau)] e^{i (k \xi - \omega \tau)}
 $$
 
 ## Compiling
