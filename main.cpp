@@ -30,7 +30,8 @@ int main (int argc, char* argv[]) {
     vector<TimeField> field;  // TODO: initialize field A(t, 0)
 
     // Initialize field A(t, 0)
-    int size = 128;
+    // TODO: move initialization to config file
+    int size = 1024;
     double ts = 0.1;  // sampling time
     double squared_width = pow(0.2, 2); // pulse width
     double tc = 3;  // pulse center

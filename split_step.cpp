@@ -54,6 +54,7 @@ TimeField step (const TimeField& field, const Config& config) {
     out_field *= exp(0.5 * pow(omega, 2) * config.step_size * I);  // propagate in space
     // TODO: normalize after inverse FFT so energy is the same
     ifourier(out_field);  // go back to time domain
+    out_field /= out_field.size();
 
     // Take half a step with nonlinear part only, again
     out_field = exp(prefactor * pow(abs(out_field), 2)) * out_field;
