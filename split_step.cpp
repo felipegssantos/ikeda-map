@@ -63,9 +63,15 @@ TimeField step (const TimeField& field, const Config& config) {
 void write_output(const std::vector<TimeField>& field, const Config& config) {
     std::ofstream file(config.output_path);
     for (auto arr : field) { // arr is the field for fixed z, all t
-        for (auto val: arr) { // val is field for fixed z and t
+        for (int i = 0; i != arr.size(); ++i) {
             // each line has the field for fixed z, running over t
-            file << val << ",";
+            file << arr[i].real();
+            if (arr[i].imag() < 0)
+                file << "-" << -arr[i].imag() << "j";
+            else
+                file << "+" << arr[i].imag() << "j";
+            if (i != arr.size() - 1)
+                file << ",";
         }
         file << std::endl;
     }
