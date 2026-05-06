@@ -1,20 +1,7 @@
 /*
  * Goal: simulate the Ikeda map for a single resonator
- *
- * The Ikeda map is the dynamics of several fields $A^m(z, t)$, all obeying the
- * same nonlinear Schrodinger equation, and related to each by the boundary
- * conditions:
- *
- * $$
- * A^{m+1}(0, t) = \sqrt{\theta} A_{in} + \sqrt{1 - \theta} e^{i \delta_0} A^m(0, t)
- * $$
- *
- * The fields $A^m$ are complex functions while $z \in [0, L]$ and $t \in [0,
- * \infty)$.
  */
 
-
-// TODO: get either config_path from input, e.g. "./simulate <config_path>"
 #include <fstream>
 #include <iostream>
 #include <ostream>
@@ -48,10 +35,7 @@ int main (int argc, char* argv[]) {
         field.push_back(step(field.back(), config));
         z += config.step_size;
     }
-    // Run simulation
-    // 1. Implement split-step method to solve NLSE
-    // 2. Implement Ikeda map having a solver for the PDE
 
-    // Save results
+    // TODO: save results
     return 0;
 }
