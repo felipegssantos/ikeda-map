@@ -28,14 +28,30 @@ int main (int argc, char* argv[]) {
     // Solve NLSE
     double z = 0;
     vector<TimeField> field;  // TODO: initialize field A(t, 0)
-    field.push_back(TimeField(1e-4, 16));
+
+    // Initialize field A(t, 0)
+    int size = 128;
+    double ts = 0.1;  // sampling time
+    double squared_width = pow(0.2, 2); // pulse width
+    double tc = 3;  // pulse center
+    std::complex<double> init[size];
+    for (int i = 0; i != size; ++i) {
+        double t = i * ts;
+        init[i] = exp(-pow(t - tc, 2) / (2 * squared_width));
+    }
+
+    field.push_back(TimeField(init, size));
+    cout << "Field initialized" << endl;
     // TODO: check config.length / config.step_size is integer
     while (z <= config.length) {
-        cout << "Running for z = " << z << endl;
+        // cout << "Running for z = " << z << endl;
         field.push_back(step(field.back(), config));
         z += config.step_size;
     }
+    cout << "Split-step finished" << endl;
 
-    // TODO: save results
+    // Save results
+    write_output(field, config);
+    cout << "Saved outputs to " << config.output_path << endl;
     return 0;
 }
