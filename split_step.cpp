@@ -49,6 +49,7 @@ TimeField step (const TimeField& field, const Config& config) {
     complex<double> freq[size];
     std::iota(freq, freq + size, 0);
     std::valarray<complex<double>> omega(freq, size);
+    // FIXME: take into account sampling time
     omega *= 2 * M_PI;
 
     out_field *= exp(0.5 * pow(omega, 2) * config.step_size * I);  // propagate in space
