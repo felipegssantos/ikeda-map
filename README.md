@@ -45,21 +45,21 @@ $$
 Then we can choose $z_0$ and $t_0$ such that
 
 $$
-\alpha z_0 = \frac{\beta_2 z_0}{t_0^2} = 1
+\alpha z_0 = \left|\frac{\beta_2 z_0}{t_0^2}\right| = 1
 \\[5pt]
 \implies
 z_0 = \frac{1}{\alpha},
 \quad
-t_0 = \sqrt{\frac{\beta_2}{\alpha}}
+t_0 = \sqrt{\frac{|\beta_2|}{\alpha}}
 $$
 
-so the NLSE becomes
+(recall that $\beta_2$ can be positive or negative) so the NLSE becomes
 
 $$
-\frac{\partial A}{\partial\xi} = -\frac{1}{2} A - \frac{i}{2} \frac{\partial^2 A}{\partial\tau^2} + i \kappa |A|^2 A
+\frac{\partial A}{\partial\xi} = -\frac{1}{2} A \pm \frac{i}{2} \frac{\partial^2 A}{\partial\tau^2} + i \kappa |A|^2 A
 $$
 
-where $\kappa = \dfrac{\gamma}{\alpha}$.
+where $\kappa = \dfrac{\gamma}{\alpha}$ and the $\pm$ sign depends on the sign of $\beta_2$.
 
 ## Split-step method
 
@@ -99,6 +99,16 @@ which for a small length step $\delta$, gives the approximate solution
 
 $$
 A(\xi + \delta, \tau) = e^{i \kappa |A(\xi, \tau)^2| h} A(\xi, \tau)
+$$
+
+A "leap-frog" approach can be used in order to make convergence scale with $h^3$ instead of $h$. That would be to take a nonlinear step of length $h/2$, then a linear step of length $h$, and finally another nonlinear step of length $h/2$, as below:
+
+$$
+A_1 = e^{i \kappa |A(\xi, \tau)|^2 h / 2} A(\xi, \tau)
+\\[5pt]
+A_2 = \mathcal{F}^{-1}\left\{ e^{k h} \mathcal{F}[A_1] \right\}
+\\[5pt]
+A(\xi + h, \tau) = e^{i \kappa |A_2|^2 h / 2} A_2
 $$
 
 ### Test cases for NLSE
