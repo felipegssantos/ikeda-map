@@ -2,14 +2,12 @@
  * Goal: simulate the Ikeda map for a single resonator
  */
 
-#include <fstream>
 #include <iostream>
-#include <ostream>
 #include <vector>
 #include "config.h"
 #include "split_step.h"
 
-using std::ifstream, std::cout, std::endl, std::vector;
+using std::cout, std::endl, std::vector;
 
 int main (int argc, char* argv[]) {
     // Check config file was provided
@@ -27,7 +25,7 @@ int main (int argc, char* argv[]) {
 
     // Solve NLSE
     double z = 0;
-    vector<TimeField> field;  // TODO: initialize field A(t, 0)
+    vector<TimeField> field;
 
     // Initialize field A(t, 0)
     // TODO: move initialization to config file
