@@ -1,4 +1,4 @@
 *.o
-*.cfg
+*.toml
 ikeda
 *.csv
