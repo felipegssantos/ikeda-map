@@ -51,7 +51,7 @@ TimeField step (const TimeField& field, const Config& config, double ts) {
     std::valarray<complex<double>> omega(freq, size);
     omega *= 2 * M_PI / ts;
 
-    out_field *= exp(0.5 * config.dispersion * (I * pow(omega, 2) - config.loss) * config.step_size);  // propagate in space
+    out_field *= exp(0.5 * (I * config.dispersion * pow(omega, 2) - config.loss) * config.step_size);  // propagate in space
     // TODO: normalize after inverse FFT so energy is the same
     ifourier(out_field);  // go back to time domain
     out_field /= out_field.size();
