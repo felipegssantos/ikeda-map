@@ -113,7 +113,49 @@ $$
 
 ### Test cases for NLSE
 
-Bright soliton
+Using unnormalized NLSE.
+
+#### $\beta_2 = 0$, $\gamma = 0$
+
+$$
+\frac{\partial A}{\partial z} = -\frac{\alpha}{2} A(z, t)
+\implies
+A(z, t) = e^{-\alpha z / 2} A(0, t)
+$$
+
+#### $\gamma = 0$, Gaussian pulse
+
+Initial condition: $A(0, t) = e^{-p (t - t_c)^2}$.
+
+$$
+\frac{\partial A}{\partial z} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2} \frac{\partial^2 A}{\partial t^2}
+\\[5pt]
+\partial_z \tilde{A} = -\frac{\alpha}{2} \tilde{A} + i \frac{\omega^2 \beta_2}{2} \tilde{A}
+\\[5pt]
+\tilde{A}(z, \omega) = \tilde{A}(0, \omega) e^{(i \omega^2 \beta_2 - \alpha) z / 2}
+\\[5pt]
+A(z, t) = e^{-\alpha z / 2} \mathcal{F}^{-1} [\tilde{A}(0, \omega) e^{i \omega^2 \beta_2 z / 2}]
+$$
+
+Fourier transform of initial condition:
+
+$$
+\begin{align*}
+\tilde{A}(0, \omega) & = \mathcal{F}[A(0, t)]
+\\ & = \mathcal{F}[e^{-p (t - t_c)^2}]
+\\ & = \mathcal{F}[e^{-p t^2}] e^{-i \omega t_c}
+\\ & = \sqrt{\frac{\pi}{p}} e^{-\omega^2 / 4 p} e^{-i \omega t_c}
+\end{align*}
+$$
+
+Inverse Fourier transform of "frequency propagated" initial condition. First rewrite the exponent of $\tilde{A}(0, \omega) e^{i \omega^2 \beta_2 z / 2}$:
+
+$$
+-\frac{\omega^2}{4 p} - i \omega t_c + \frac{1}{2} i \omega^2 \beta_2 z
+= 
+$$
+
+#### Bright soliton???
 
 $$
 A(\xi, \tau) = a \operatorname{sech} [a (\xi - v \tau)] e^{i (k \xi - \omega \tau)}
