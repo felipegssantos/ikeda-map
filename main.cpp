@@ -31,8 +31,8 @@ int main (int argc, char* argv[]) {
     // TODO: move initialization to config file
     int size = 1024;
     double ts = 0.1;  // sampling time
-    double squared_width = pow(0.2, 2); // pulse width
-    double tc = 3;  // pulse center
+    double squared_width = pow(2, 2); // pulse width
+    double tc = 5;  // pulse center
     std::complex<double> init[size];
     for (int i = 0; i != size; ++i) {
         double t = i * ts;
@@ -44,7 +44,7 @@ int main (int argc, char* argv[]) {
     // TODO: check config.length / config.step_size is integer
     while (z <= config.length) {
         // cout << "Running for z = " << z << endl;
-        field.push_back(step(field.back(), config));
+        field.push_back(step(field.back(), config, ts));
         z += config.step_size;
     }
     cout << "Split-step finished" << endl;

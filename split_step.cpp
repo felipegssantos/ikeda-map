@@ -34,7 +34,7 @@ void ifourier (TimeField& field) {
     fourier(field, FFTW_BACKWARD);
 }
 
-TimeField step (const TimeField& field, const Config& config) {
+TimeField step (const TimeField& field, const Config& config, double ts) {
     // TODO: use normalized form of NLSE instead
     const complex<double> I = {0, 1};
     // Take half a step with nonlinear part only
@@ -49,8 +49,7 @@ TimeField step (const TimeField& field, const Config& config) {
     complex<double> freq[size];
     std::iota(freq, freq + size, 0);
     std::valarray<complex<double>> omega(freq, size);
-    // FIXME: take into account sampling time
-    omega *= 2 * M_PI;
+    omega *= 2 * M_PI / ts;
 
     out_field *= exp(0.5 * pow(omega, 2) * config.step_size * I);  // propagate in space
     // TODO: normalize after inverse FFT so energy is the same
