@@ -31,8 +31,8 @@ int main (int argc, char* argv[]) {
     // TODO: move initialization to config file
     int size = 1024;
     double ts = 0.1;  // sampling time
-    double squared_width = pow(2, 2); // pulse width
-    double tc = 5;  // pulse center
+    double squared_width = pow(1, 2); // pulse width
+    double tc = ts * size / 2;  // pulse center
     std::complex<double> init[size];
     for (int i = 0; i != size; ++i) {
         double t = i * ts;
