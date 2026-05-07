@@ -29,9 +29,9 @@ int main (int argc, char* argv[]) {
 
     // Initialize field A(t, 0)
     // TODO: move initialization to config file
-    int size = 1024;
-    double ts = 0.1;  // sampling time
-    double squared_width = pow(1, 2); // pulse width
+    int size = pow(2, 11);
+    double ts = 0.01;  // sampling time
+    double squared_width = pow(0.5, 2); // pulse width
     double tc = ts * size / 2;  // pulse center
     std::complex<double> init[size];
     for (int i = 0; i != size; ++i) {
