@@ -1,12 +1,11 @@
 #include <complex>
 #include <iostream>
-#include <numeric>
 #include <valarray>
 #include <fftw3.h>
 #include <vector>
 #include "split_step.h"
 
-using std::complex;
+using std::complex, std::vector;
 
 // TODO: reuse fftw plans, maybe optimize plan if NLSE problem is big enough
 void fourier (TimeField& field, int fftw_direction) {
@@ -34,6 +33,19 @@ void ifourier (TimeField& field) {
     fourier(field, FFTW_BACKWARD);
 }
 
+vector<complex<double>> fftfreq(size_t n) {
+    vector<complex<double>> freq(n);
+    size_t mid = (n - 1) / 2 + 1;
+    double N = n;
+    // non-negative frequencies
+    for (int i = 0; i != mid; ++i)
+        freq[i] = i / N;
+    // negative frequencies
+    for (int i = mid; i != n; ++i)
+        freq[i] = (i - N) / N;
+    return freq;
+}
+
 TimeField step (const TimeField& field, const Config& config, double ts) {
     // TODO: use normalized form of NLSE instead
     const complex<double> I = {0, 1};
@@ -46,9 +58,8 @@ TimeField step (const TimeField& field, const Config& config, double ts) {
 
     // Build frequency vector
     auto size = field.size();
-    complex<double> freq[size];
-    std::iota(freq, freq + size, 0);
-    std::valarray<complex<double>> omega(freq, size);
+    vector<complex<double>> freq = fftfreq(size);
+    std::valarray<complex<double>> omega(freq.data(), size);
     omega *= 2 * M_PI / ts;
 
     out_field *= exp(0.5 * (I * config.dispersion * pow(omega, 2) - config.loss) * config.step_size);  // propagate in space
