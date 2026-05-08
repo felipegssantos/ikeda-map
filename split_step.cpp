@@ -54,21 +54,21 @@ TimeField step (const TimeField& field, const Config& config, double ts) {
     TimeField out_field = exp(prefactor * pow(abs(field), 2)) * field;
 
     // Take full step with linear part only (requires FFTW)
-    fourier(out_field);  // go to frequency domain
-
+    // Go to frequency domain
+    fourier(out_field);
     // Build frequency vector
     auto size = field.size();
     vector<complex<double>> freq = fftfreq(size);
     std::valarray<complex<double>> omega(freq.data(), size);
     omega *= 2 * M_PI / ts;
-
+    // Propagate in frequency domain
     out_field *= exp(0.5 * (I * config.dispersion * pow(omega, 2) - config.loss) * config.step_size);  // propagate in space
-    // TODO: normalize after inverse FFT so energy is the same
-    ifourier(out_field);  // go back to time domain
+    // Back to time domain
+    ifourier(out_field);
     out_field /= out_field.size();
 
     // Take half a step with nonlinear part only, again
-    out_field = exp(prefactor * pow(abs(out_field), 2)) * out_field;
+    out_field *= exp(prefactor * pow(abs(out_field), 2));
     return out_field;
 }
 
