@@ -7,7 +7,7 @@ vpath %.a /usr/local/lib  # where to search for libfftw3.a
 
 objects = config.o split_step.o main.o
 
-ikeda: config.o split_step.o main.o -lfftw3
+ikeda: $(objects) -lfftw3
 	clang++ -o $@ $^
 
 config.o: config.h
