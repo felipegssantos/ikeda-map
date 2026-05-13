@@ -1,12 +1,14 @@
-# TODO: move to a `build` directory
+# TODO: move compiled files to a `build` directory
 
 CXX = clang++
+vpath %.cpp src
+vpath %.h src
+vpath %.a /usr/local/lib  # where to search for libfftw3.a
 
 objects = config.o split_step.o main.o
-fftw = /usr/local/lib/libfftw3.a
 
-ikeda: config.o split_step.o main.o
-	clang++ -o ikeda $(objects) $(fftw)
+ikeda: config.o split_step.o main.o -lfftw3
+	clang++ -o $@ $^
 
 config.o: config.h
 main.o split_step.o: config.h split_step.h
