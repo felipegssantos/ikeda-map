@@ -38,7 +38,7 @@ Substituting $z = \xi z_0$ and $t = \tau t_0$,
 
 $$
 \frac{1}{z_0} \frac{\partial A}{\partial \xi} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2 t_0^2} \frac{\partial^2 A}{\partial \tau^2} + i \gamma |A|^2 A
-\\[5pt]
+\\
 \frac{\partial A}{\partial \xi} = -\frac{\alpha z_0}{2} A - i \frac{\beta_2 z_0}{2 t_0^2} \frac{\partial^2 A}{\partial\tau^2} + i \gamma z_0 |A|^2 A
 $$
 
@@ -46,7 +46,7 @@ Then we can choose $z_0$ and $t_0$ such that
 
 $$
 \alpha z_0 = \left|\frac{\beta_2 z_0}{t_0^2}\right| = 1
-\\[5pt]
+\\
 \implies
 z_0 = \frac{1}{\alpha},
 \quad
@@ -105,9 +105,9 @@ A "leap-frog" approach can be used in order to make convergence scale with $h^3$
 
 $$
 A_1 = e^{i \kappa |A(\xi, \tau)|^2 h / 2} A(\xi, \tau)
-\\[5pt]
-A_2 = \mathcal{F}^{-1}\left\{ e^{k h} \mathcal{F}[A_1] \right\}
-\\[5pt]
+\\
+A_2 = \mathcal{F}^{-1}\left[ e^{k h} \mathcal{F}[A_1] \right]
+\\
 A(\xi + h, \tau) = e^{i \kappa |A_2|^2 h / 2} A_2
 $$
 
@@ -123,17 +123,17 @@ $$
 A(z, t) = e^{-\alpha z / 2} A(0, t)
 $$
 
-#### $\gamma = 0$, Gaussian pulse
+#### $\gamma = 0$, Gaussian pulse (incomplete)
 
 Initial condition: $A(0, t) = e^{-p (t - t_c)^2}$.
 
 $$
 \frac{\partial A}{\partial z} = -\frac{\alpha}{2} A - i \frac{\beta_2}{2} \frac{\partial^2 A}{\partial t^2}
-\\[5pt]
+\\
 \partial_z \tilde{A} = -\frac{\alpha}{2} \tilde{A} + i \frac{\omega^2 \beta_2}{2} \tilde{A}
-\\[5pt]
+\\
 \tilde{A}(z, \omega) = \tilde{A}(0, \omega) e^{(i \omega^2 \beta_2 - \alpha) z / 2}
-\\[5pt]
+\\
 A(z, t) = e^{-\alpha z / 2} \mathcal{F}^{-1} [\tilde{A}(0, \omega) e^{i \omega^2 \beta_2 z / 2}]
 $$
 
@@ -151,12 +151,11 @@ $$
 Inverse Fourier transform of "frequency propagated" initial condition. First rewrite the exponent of $\tilde{A}(0, \omega) e^{i \omega^2 \beta_2 z / 2}$:
 
 $$
--\frac{\omega^2}{4 p} - i \omega t_c + \frac{1}{2} i \omega^2 \beta_2 z
-= 
+-\frac{\omega^2}{4 p} - i \omega t_c + \frac{1}{2} i \omega^2 \beta_2 z = 
 $$
 
 #### Bright soliton???
 
 $$
-A(\xi, \tau) = a \operatorname{sech} [a (\xi - v \tau)] e^{i (k \xi - \omega \tau)}
+A(\xi, \tau) = a \mathrm{sech} [a (\xi - v \tau)] e^{i (k \xi - \omega \tau)}
 $$
